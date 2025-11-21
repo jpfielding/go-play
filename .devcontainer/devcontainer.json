@@ -1,5 +1,5 @@
 {
-    "name": "m2adapter",
+    "name": "go-play",
     "build": { 
       "dockerfile": "./Dockerfile",
       "context": ".",

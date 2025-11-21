@@ -1,4 +1,4 @@
-FROM rockylinux:8.5 as base
+FROM rockylinux:9.3 AS base
 
 ARG REPO_NAME=go-play
 ARG USERNAME=gopher
@@ -6,18 +6,13 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN set -eux -o pipefail && \
-    dnf install -y curl dnf-utils dnf-plugins-core epel-release git jq ncurses sudo which rsync && \
-    dnf config-manager --set-enabled powertools && \ 
-    dnf install -y ca-certificates cmake gcc gcc-c++ glib2-devel
-
-# docker cli
+    dnf install --setopt=***.sslverify=false -y dnf-utils dnf-plugins-core epel-release
 RUN set -eux -o pipefail && \
-    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo && \
-    yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo which rsync
 
 # envs
-ENV INSTALL_PATH "/usr/local"
-ENV PATH ${HOME}/bin:${PATH}
+ENV INSTALL_PATH="/usr/local"
+ENV PATH=${HOME}/bin:${PATH}
 
 # Create the user
 RUN groupadd --gid ${USER_GID} ${USERNAME} && \
@@ -26,7 +21,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME} && \
   chmod 0440 /etc/sudoers.d/${USERNAME}
 
 ########### NON ROOT FROM HERE DOWN ###########
-FROM base as user
+FROM base AS user
 
 USER ${USERNAME}
 
@@ -35,18 +30,18 @@ RUN set -eux && \
     sudo chown ${USERNAME}:${USERNAME} /workdir
 
 # envs
-ENV HOME "/home/${USERNAME}"
-ENV SDK_HOME ${HOME}/sdk
-ENV PATH ${HOME}/bin:${PATH}
+ENV HOME="/home/${USERNAME}"
+ENV SDK_HOME=${HOME}/sdk
+ENV PATH=${HOME}/bin:${PATH}
 
 # go
-ENV GO_VERSION "1.23.3"
-ENV GOPATH ${SDK_HOME}/go
-ENV PATH ${GOPATH}/bin:${HOME}/sdk/go:${PATH}
+ENV GO_VERSION="1.25.4"
+ENV GOPATH=${SDK_HOME}/go
+ENV PATH=${GOPATH}/bin:${HOME}/sdk/go:${PATH}
 RUN set -eux && \
     export GO_ARCH="$(arch | sed 's/aarch64/arm64/' | sed 's/x86_64/amd64/')" && \
     cd /tmp && mkdir -p ${SDK_HOME} && \
-    curl -o go.tar.gz -L https://go.dev/dl/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz && \
+    curl -k -o go.tar.gz -L https://go.dev/dl/go${GO_VERSION}.linux-${GO_ARCH}.tar.gz && \
     tar xzf go.tar.gz && mv go ${SDK_HOME} && rm /tmp/go.tar.gz && \
     cd ${SDK_HOME} && mv go go${GO_VERSION} && ln -s go${GO_VERSION} go
    
