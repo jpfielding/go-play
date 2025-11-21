@@ -1,4 +1,4 @@
-go 1.23
+go 1.25.4
 
 use (
 	./attr_padlocks
@@ -10,8 +10,8 @@ use (
 	./ntp
 	./ntpfanout
 	./simple
-	./simplechan
 	./simple-web-server
+	./simplechan
 	./sonic-io
 	./util
 )
