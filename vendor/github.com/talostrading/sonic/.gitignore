@@ -1,0 +1,11 @@
+todo.md
+bin/
+*.pem
+tests/autobahn/reports/
+.idea/
+temp/
+.vscode/
+examples/multicast_peer/udp_rate_reader
+examples/multicast_peer/udp_rate_writer
+examples/multicast_peer/dump
+results.sarif

@@ -4,6 +4,7 @@ use (
 	./attr_padlocks
 	./chanchan
 	./dragonpuzzle
+	./go-adk/a2a
 	./ldap
 	./library
 	./ntp

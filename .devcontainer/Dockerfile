@@ -1,15 +1,15 @@
-FROM rockylinux:9.3 AS base
+
+FROM rockylinux/rockylinux:10 AS base
 
 ARG REPO_NAME=go-play
-ARG USERNAME=gopher
+ARG USERNAME=guido
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN set -eux -o pipefail && \
-    dnf install --setopt=***.sslverify=false -y dnf-utils dnf-plugins-core epel-release
-RUN set -eux -o pipefail && \
     dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo which rsync
-
+RUN set -eux -o pipefail && \
+    dnf install --setopt=***.sslverify=false -y python3 python3-pip
 # envs
 ENV INSTALL_PATH="/usr/local"
 ENV PATH=${HOME}/bin:${PATH}
