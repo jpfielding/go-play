@@ -26,17 +26,17 @@
       {
           "type": "bind",
           "source": "${localEnv:HOME}/.gitconfig",
-          "target": "/root/.gitconfig"
+          "target": "/home/${localEnv:USER:gopher}/.gitconfig"
       },
       {
           "type": "bind",
           "source": "${localEnv:HOME}/.git-credentials",
-          "target": "/root/.git-credentials"
+          "target": "/home/${localEnv:USER:gopher}/.git-credentials"
       },
       { 
           "type": "bind",
           "source": "${localEnv:HOME}/.ssh",
-          "target": "/root/.ssh"
+          "target": "/home/${localEnv:USER:gopher}/.ssh"
       },
       { 
           "type": "bind",
