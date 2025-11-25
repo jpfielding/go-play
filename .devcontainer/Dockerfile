@@ -6,11 +6,14 @@ ARG USERNAME=guido
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
+# Add ca certs so we can build the image on vpn
+COPY cas.pem /etc/pki/ca-trust/source/anchors/custom_cas.pem 
+RUN update-ca-trust
+
 RUN set -eux -o pipefail && \
     dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo which rsync
-RUN set -eux -o pipefail && \
-    dnf install --setopt=***.sslverify=false -y python3 python3-pip
-# envs
+
+    # envs
 ENV INSTALL_PATH="/usr/local"
 ENV PATH=${HOME}/bin:${PATH}
 
