@@ -11,7 +11,7 @@ COPY cas.pem /etc/pki/ca-trust/source/anchors/custom_cas.pem
 RUN update-ca-trust
 
 RUN set -eux -o pipefail && \
-    dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo which rsync
+    dnf install --setopt=***.sslverify=false -y ca-certificates curl-minimal git jq sudo wget which rsync
 
     # envs
 ENV INSTALL_PATH="/usr/local"
