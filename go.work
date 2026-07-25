@@ -1,4 +1,4 @@
-go 1.25.4
+go 1.26.5
 
 use (
 	./attr_padlocks
@@ -13,5 +13,6 @@ use (
 	./simple-web-server
 	./simplechan
 	./sonic-io
+	./stl
 	./util
 )
