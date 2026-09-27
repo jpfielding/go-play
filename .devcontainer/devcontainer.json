@@ -12,13 +12,9 @@
       "vscode": {
         "extensions": [
           "bierner.markdown-mermaid",
-          "eamodio.gitlens",
           "golang.go",
-          "GitHub.copilot-chat",
           "Anthropic.claude-code",
-          "openai.chatgpt",
-          "ms-vsliveshare.vsliveshare",
-          "ms-azuretools.vscode-docker"
+          "openai.chatgpt"
           ]
       }
     },
